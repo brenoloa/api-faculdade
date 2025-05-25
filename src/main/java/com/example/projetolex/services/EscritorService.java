@@ -47,14 +47,6 @@ public class EscritorService {
         return repository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public Escritor buscarEscritorPorEmail(String email) {
-        return repository.findByEmail(email);
-    }
-
-    public Escritor buscarEscritorPorCpf(String cpf) {
-        return repository.findByCpf(cpf);
-    }
-
     public void validarDadosEscritor(Escritor escritor) {
         if (!validarNome(escritor.getNome())) {
             throw new DadoInvalidoException("Nome inválido.");
