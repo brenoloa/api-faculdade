@@ -11,15 +11,14 @@ import java.util.List;
 
 import static com.example.projetolex.util.ValidadorDados.validarCpf;
 import static com.example.projetolex.util.ValidadorDados.validarEmail;
-import static com.example.projetolex.util.ValidadorDados.validarIdade;
 import static com.example.projetolex.util.ValidadorDados.validarNome;
+import static com.example.projetolex.util.ValidadorDados.validarNumero;
 
 @RequiredArgsConstructor
 @Service
 public class EscritorService {
 
-    @Autowired
-    private EscritorRepository repository;
+    private final EscritorRepository repository;
 
     public Escritor adicionarEscritor(Escritor escritor) {
         validarDadosEscritor(escritor);
@@ -48,6 +47,10 @@ public class EscritorService {
     }
 
     public void validarDadosEscritor(Escritor escritor) {
+        if (escritor == null || escritor.getNome() == null || escritor.getCpf() == null || escritor.getEmail() == null || escritor.getIdade() == null) {
+            throw new DadoInvalidoException("Objeto não preenchido corretamente.");
+        }
+
         if (!validarNome(escritor.getNome())) {
             throw new DadoInvalidoException("Nome inválido.");
         }
@@ -57,7 +60,7 @@ public class EscritorService {
         if (!validarEmail(escritor.getEmail())) {
             throw new DadoInvalidoException("E-mail inválido.");
         }
-        if (!validarIdade(escritor.getIdade())) {
+        if (!validarNumero(escritor.getIdade())) {
             throw new DadoInvalidoException("Idade inválida.");
         }
         if (repository.findByCpf(escritor.getCpf()) != null) {
@@ -67,5 +70,4 @@ public class EscritorService {
             throw new DadoInvalidoException("E-mail já cadastrado.");
         }
     }
-
 }

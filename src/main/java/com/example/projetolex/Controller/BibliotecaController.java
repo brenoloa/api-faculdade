@@ -2,6 +2,7 @@ package com.example.projetolex.Controller;
 
 import com.example.projetolex.domain.Escritor;
 import com.example.projetolex.domain.Livro;
+import com.example.projetolex.domain.LivroDTO;
 import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.services.EscritorService;
 import com.example.projetolex.services.LivroService;
@@ -26,11 +27,9 @@ import static com.example.projetolex.util.ValidadorDados.*;
 @RequestMapping("/api/biblioteca")
 public class BibliotecaController {
 
-    @Autowired
-    private EscritorService escritorService;
+    private final EscritorService escritorService;
 
-    @Autowired
-    private LivroService livroService;
+    private final LivroService livroService;
 
 
     // ===================================================================================
@@ -94,28 +93,29 @@ public class BibliotecaController {
     }
 
     @PostMapping("/adicionar/livro")
-    public void adicionarLivro(@RequestBody Livro livro) {
-        livroService.adicionarLivro(livro);
+    public Livro adicionarLivro(@RequestBody LivroDTO livro) {
+        return livroService.adicionarLivro(livro);
     }
 
     @DeleteMapping("/remover/escritor/{id}")
     public void removerEscritor(@PathVariable int id) {
         escritorService.removerEscritor(id);
     }
+
     @DeleteMapping("/remover/livro/{id}")
     public void removerLivro(@PathVariable int id) {
         livroService.removerLivro(id);
     }
 
-//    @PutMapping("/atualizar/escritor/{id}")
-//    public void atualizarEscritorPorId(@PathVariable int id, Escritor escritor) {
-//        escritor.setId(id);
-//        escritorService.atualizarEscritor(escritor);
-//    }
-//    @PutMapping("/atualizar/livro/{id}")
-//    public void atualizarLivroPorId(@PathVariable int id, Livro livro) {
-//        livro.setI
-//        livroService.atualizarLivro(livro);
-//    }
+    @PutMapping("/atualizar/escritor")
+    public Escritor atualizarEscritor(@RequestBody Escritor escritor) {
+        return escritorService.adicionarEscritor(escritor);
+    }
+
+    @PutMapping("/atualizar/livro")
+    public Livro atualizarLivro(@RequestBody LivroDTO livro) {
+        return livroService.adicionarLivro(livro);
+    }
+
 
 }

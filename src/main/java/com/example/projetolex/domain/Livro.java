@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -35,9 +33,5 @@ public class Livro {
     private String editora;
 
     private Integer anoPublicacao;
-
-    private void setId (int id) {
-        this.id = id;
-    }
 
 }
