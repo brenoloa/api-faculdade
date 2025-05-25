@@ -15,4 +15,10 @@ public interface EscritorRepository extends JpaRepository<Escritor, Integer> {
     @Query("SELECT e FROM Escritor e WHERE LOWER(e.nome) LIKE LOWER(CONCAT('%', :nome, '%'))")
     List<Escritor> findByNomeContainingIgnoreCase(@Param("nome") String nome);
 
+    @Query("SELECT e FROM Escritor e WHERE LOWER(e.email) = LOWER(:email)")
+    Escritor findByEmail(@Param("email") String email);
+
+    @Query("SELECT e FROM Escritor e WHERE LOWER(e.cpf) = LOWER(:cpf)")
+    Escritor findByCpf(@Param("cpf") String cpf);
+
 }

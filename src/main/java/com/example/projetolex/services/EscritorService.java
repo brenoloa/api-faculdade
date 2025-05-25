@@ -1,6 +1,7 @@
 package com.example.projetolex.services;
 
 import com.example.projetolex.domain.Escritor;
+import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.repository.EscritorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,20 +9,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.projetolex.util.ValidadorDados.validarCpf;
+import static com.example.projetolex.util.ValidadorDados.validarEmail;
+import static com.example.projetolex.util.ValidadorDados.validarIdade;
+import static com.example.projetolex.util.ValidadorDados.validarNome;
+
 @RequiredArgsConstructor
 @Service
 public class EscritorService {
 
     @Autowired
-    private  EscritorRepository repository;
+    private EscritorRepository repository;
 
     public Escritor adicionarEscritor(Escritor escritor) {
-        Escritor newEscritor = new Escritor();
-        newEscritor.setNome(escritor.getNome());
-        newEscritor.setEmail(escritor.getEmail());
-        newEscritor.setCpf(escritor.getCpf());
-        newEscritor.setIdade(escritor.getIdade());
-        salvarEscritor(newEscritor);
+        validarDadosEscritor(escritor);
+        salvarEscritor(escritor);
         return escritor;
     }
 
@@ -45,6 +47,33 @@ public class EscritorService {
         return repository.findByNomeContainingIgnoreCase(nome);
     }
 
+    public Escritor buscarEscritorPorEmail(String email) {
+        return repository.findByEmail(email);
+    }
 
+    public Escritor buscarEscritorPorCpf(String cpf) {
+        return repository.findByCpf(cpf);
+    }
+
+    public void validarDadosEscritor(Escritor escritor) {
+        if (!validarNome(escritor.getNome())) {
+            throw new DadoInvalidoException("Nome inválido.");
+        }
+        if (!validarCpf(escritor.getCpf(), true)) {
+            throw new DadoInvalidoException("CPF inválido.");
+        }
+        if (!validarEmail(escritor.getEmail())) {
+            throw new DadoInvalidoException("E-mail inválido.");
+        }
+        if (!validarIdade(escritor.getIdade())) {
+            throw new DadoInvalidoException("Idade inválida.");
+        }
+        if (repository.findByCpf(escritor.getCpf()) != null) {
+            throw new DadoInvalidoException("CPF já cadastrado.");
+        }
+        if (repository.findByEmail(escritor.getEmail()) != null) {
+            throw new DadoInvalidoException("E-mail já cadastrado.");
+        }
+    }
 
 }

@@ -7,7 +7,7 @@ public class ValidadorDados {
         return nome != null && !nome.trim().isEmpty();
     }
 
-   public static boolean validarCpf(String cpf, boolean validarReal) {
+    public static boolean validarCpf(String cpf, boolean validarReal) {
         if (cpf == null) return false;
         cpf = cpf.replaceAll("[\\.\\-]", "");
         if (!cpf.matches("\\d{11}")) return false;

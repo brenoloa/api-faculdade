@@ -90,18 +90,6 @@ public class BibliotecaController {
 
     @PostMapping("/adicionar/escritor")
     public Escritor adicionarEscritor(@RequestBody Escritor escritor) {
-        if (!validarNome(escritor.getNome())) {
-            throw new DadoInvalidoException("Nome inválido.");
-        }
-        if (!validarCpf(escritor.getCpf(), true)) {
-            throw new DadoInvalidoException("CPF inválido.");
-        }
-        if (!validarEmail(escritor.getEmail())) {
-            throw new DadoInvalidoException("E-mail inválido.");
-        }
-        if (!validarIdade(escritor.getIdade())) {
-            throw new DadoInvalidoException("Idade inválida.");
-        }
         return escritorService.adicionarEscritor(escritor);
     }
 
