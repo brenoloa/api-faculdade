@@ -2,8 +2,10 @@ package com.example.projetolex.Controller;
 
 import com.example.projetolex.domain.Escritor;
 import com.example.projetolex.domain.Livro;
+import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.services.EscritorService;
 import com.example.projetolex.services.LivroService;
+import com.example.projetolex.util.ValidadorDados;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static com.example.projetolex.util.ValidadorDados.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -86,6 +90,18 @@ public class BibliotecaController {
 
     @PostMapping("/adicionar/escritor")
     public Escritor adicionarEscritor(@RequestBody Escritor escritor) {
+        if (!validarNome(escritor.getNome())) {
+            throw new DadoInvalidoException("Nome inválido.");
+        }
+        if (!validarCpf(escritor.getCpf(), true)) {
+            throw new DadoInvalidoException("CPF inválido.");
+        }
+        if (!validarEmail(escritor.getEmail())) {
+            throw new DadoInvalidoException("E-mail inválido.");
+        }
+        if (!validarIdade(escritor.getIdade())) {
+            throw new DadoInvalidoException("Idade inválida.");
+        }
         return escritorService.adicionarEscritor(escritor);
     }
 

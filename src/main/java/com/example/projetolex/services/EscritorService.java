@@ -21,7 +21,7 @@ public class EscritorService {
         newEscritor.setEmail(escritor.getEmail());
         newEscritor.setCpf(escritor.getCpf());
         newEscritor.setIdade(escritor.getIdade());
-        repository.save(newEscritor);
+        salvarEscritor(newEscritor);
         return escritor;
     }
 
@@ -37,7 +37,7 @@ public class EscritorService {
         return repository.findAll();
     }
 
-    public void atualizarEscritor(Escritor escritor) {
+    public void salvarEscritor(Escritor escritor) {
         repository.save(escritor);
     }
 
