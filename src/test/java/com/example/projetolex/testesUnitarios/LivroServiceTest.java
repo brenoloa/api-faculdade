@@ -6,7 +6,7 @@ import com.example.projetolex.domain.LivroDTO;
 import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.repository.LivroRepository;
 import com.example.projetolex.repository.EscritorRepository;
-import com.example.projetolex.services.LivroService;
+import com.example.projetolex.service.LivroService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

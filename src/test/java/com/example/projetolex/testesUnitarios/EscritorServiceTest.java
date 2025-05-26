@@ -3,7 +3,7 @@ package com.example.projetolex.testesUnitarios;
 import com.example.projetolex.domain.Escritor;
 import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.repository.EscritorRepository;
-import com.example.projetolex.services.EscritorService;
+import com.example.projetolex.service.EscritorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

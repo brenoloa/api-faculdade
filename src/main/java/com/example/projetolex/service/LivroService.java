@@ -1,4 +1,4 @@
-package com.example.projetolex.services;
+package com.example.projetolex.service;
 
 import com.example.projetolex.domain.Livro;
 import com.example.projetolex.domain.LivroDTO;
@@ -7,12 +7,9 @@ import com.example.projetolex.repository.EscritorRepository;
 import com.example.projetolex.repository.LivroRepository;
 import com.example.projetolex.util.ValidadorDados;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.util.List;
-import java.util.zip.DataFormatException;
 
 @RequiredArgsConstructor
 @Service

@@ -1,10 +1,9 @@
-package com.example.projetolex.services;
+package com.example.projetolex.service;
 
 import com.example.projetolex.domain.Escritor;
 import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.repository.EscritorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

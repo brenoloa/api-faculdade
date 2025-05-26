@@ -1,14 +1,11 @@
-package com.example.projetolex.Controller;
+package com.example.projetolex.controller;
 
 import com.example.projetolex.domain.Escritor;
 import com.example.projetolex.domain.Livro;
 import com.example.projetolex.domain.LivroDTO;
-import com.example.projetolex.execption.DadoInvalidoException;
-import com.example.projetolex.services.EscritorService;
-import com.example.projetolex.services.LivroService;
-import com.example.projetolex.util.ValidadorDados;
+import com.example.projetolex.service.EscritorService;
+import com.example.projetolex.service.LivroService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import static com.example.projetolex.util.ValidadorDados.*;
 
 @RequiredArgsConstructor
 @RestController
