@@ -8,12 +8,8 @@ import lombok.Setter;
 public class LivroDTO {
 
     private String titulo;
-
     private int escritor;
-
     private Double preco;
-
     private String editora;
-
     private Integer anoPublicacao;
 }
