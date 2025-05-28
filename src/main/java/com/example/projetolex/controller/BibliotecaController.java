@@ -1,6 +1,7 @@
 package com.example.projetolex.controller;
 
 import com.example.projetolex.domain.Escritor;
+import com.example.projetolex.domain.EscritorDTO;
 import com.example.projetolex.domain.Livro;
 import com.example.projetolex.domain.LivroDTO;
 import com.example.projetolex.service.EscritorService;
@@ -93,23 +94,23 @@ public class BibliotecaController {
     }
 
     @DeleteMapping("/remover/escritor/{id}")
-    public void removerEscritor(@PathVariable int id) {
-        escritorService.removerEscritor(id);
+    public String removerEscritor(@PathVariable int id) {
+        return escritorService.removerEscritor(id);
     }
 
     @DeleteMapping("/remover/livro/{id}")
-    public void removerLivro(@PathVariable int id) {
-        livroService.removerLivro(id);
+    public String removerLivro(@PathVariable int id) {
+        return livroService.removerLivro(id);
     }
 
     @PutMapping("/atualizar/escritor")
-    public Escritor atualizarEscritor(@RequestBody Escritor escritor) {
-        return escritorService.adicionarEscritor(escritor);
+    public Escritor atualizarEscritor(@RequestBody EscritorDTO dto) {
+        return escritorService.editarEscritor(dto);
     }
 
     @PutMapping("/atualizar/livro")
-    public Livro atualizarLivro(@RequestBody LivroDTO livro) {
-        return livroService.adicionarLivro(livro);
+    public Livro atualizarLivro(@RequestBody LivroDTO dto) {
+        return livroService.editarLivro(dto);
     }
 
 

@@ -31,8 +31,30 @@ public class LivroService {
         return livroNovo;
     }
 
-    public void removerLivro(int id) {
+    public Livro editarLivro(LivroDTO livroDTO) {
+        Livro livro = buscarLivroPorId(livroDTO.getId());
+        if (livro == null) throw new DadoInvalidoException("Livro não encontrado.");
+        if (livroDTO.getTitulo() != null && !ValidadorDados.validarNome(livroDTO.getTitulo())) throw new DadoInvalidoException("Título inválido.");
+        if (livroDTO.getPreco() != null && !ValidadorDados.validarNumeroDouble(livroDTO.getPreco())) throw new DadoInvalidoException("Preço inválido.");
+        if (livroDTO.getAnoPublicacao() != null && !ValidadorDados.validarAnoPublicacao(livroDTO.getAnoPublicacao())) throw new DadoInvalidoException("Ano de publicação inválido.");
+        if (livroDTO.getEditora() != null && !ValidadorDados.validarNome(livroDTO.getEditora())) throw new DadoInvalidoException("Editora inválida.");
+
+        if (livroDTO.getEscritor() != 0) {
+            livro.setEscritor(escritorRepository.findById(livroDTO.getEscritor()).orElseThrow(() -> new DadoInvalidoException("Escritor não encontrado.")));
+        }
+
+        livro.setTitulo(livroDTO.getTitulo());
+        livro.setPreco(livroDTO.getPreco());
+        livro.setAnoPublicacao(livroDTO.getAnoPublicacao());
+        livro.setEditora(livroDTO.getEditora());
+        salvarLivro(livro);
+        return livro;
+    }
+
+    public String removerLivro(int id) {
+        if (buscarLivroPorId(id) == null) throw new DadoInvalidoException("Livro não encontrado.");
         livroRepository.deleteById(id);
+        return "Livro removido com sucesso!";
     }
 
     public Livro buscarLivroPorId(int id) {
