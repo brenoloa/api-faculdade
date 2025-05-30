@@ -2,24 +2,28 @@ package com.example.projetolex.service;
 
 import com.example.projetolex.domain.Escritor;
 import com.example.projetolex.domain.EscritorDTO;
+import com.example.projetolex.domain.objectsCalistenicos.CpfVO;
+import com.example.projetolex.domain.objectsCalistenicos.EmailVO;
 import com.example.projetolex.execption.DadoInvalidoException;
 import com.example.projetolex.repository.EscritorRepository;
 import com.example.projetolex.util.ValidadorDados;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.projetolex.util.ValidadorDados.*;
-import static com.example.projetolex.util.ValidadorDados.validarCpf;
-import static com.example.projetolex.util.ValidadorDados.validarEmail;
 import static com.example.projetolex.util.ValidadorDados.validarNome;
 import static com.example.projetolex.util.ValidadorDados.validarNumero;
-
+@Getter
+@Setter
 @RequiredArgsConstructor
 @Service
 public class EscritorService {
 
+    private CpfVO cpf;
+    private EmailVO email;
     private final EscritorRepository repository;
 
     public Escritor adicionarEscritor(Escritor escritor) {
@@ -33,7 +37,6 @@ public class EscritorService {
         if (escritor == null) throw new DadoInvalidoException("Escritor não encontrado.");
         if (dto.getCpf() != null) throw new DadoInvalidoException("CPF não pode ser alterado.");
         if (dto.getNome() != null && !validarNome(dto.getNome()) && dto.getNome() != null) throw new DadoInvalidoException("Nome inválido.");
-        if (dto.getEmail() != null && !validarEmail(dto.getEmail())) throw new DadoInvalidoException("E-mail inválido.");
         if (dto.getIdade() != null && !validarNumero(dto.getIdade())) throw new DadoInvalidoException("Idade inválida.");
 
         escritor.setNome(dto.getNome());
@@ -72,20 +75,11 @@ public class EscritorService {
         if (!validarNome(escritor.getNome())) {
             throw new DadoInvalidoException("Nome inválido.");
         }
-        if (!validarCpf(escritor.getCpf(), true)) {
-            throw new DadoInvalidoException("CPF inválido.");
-        }
-        if (!validarEmail(escritor.getEmail())) {
-            throw new DadoInvalidoException("E-mail inválido.");
-        }
+        cpf = new CpfVO(repository, escritor.getCpf());
+        email = new EmailVO(repository, escritor.getEmail());
         if (!validarNumero(escritor.getIdade())) {
             throw new DadoInvalidoException("Idade inválida.");
         }
-        if (repository.findByCpf(escritor.getCpf()) != null) {
-            throw new DadoInvalidoException("CPF já cadastrado.");
-        }
-        if (repository.findByEmail(escritor.getEmail()) != null) {
-            throw new DadoInvalidoException("E-mail já cadastrado.");
-        }
+
     }
 }
